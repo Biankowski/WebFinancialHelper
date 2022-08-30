@@ -1,3 +1,6 @@
 ﻿1) Acabar com a Action Add e acoplar a funcionalidade de adicionar imagens direto na Action Index
 2) Adicionar a Action Edit
 3) Adicionar o valor total das compras no Index
+4) Adicionar a opção de enviar dados manuais
+5) Melhorar a aparência
+6) Acabar com a cola de diretórios literais e refatorar para a aquisição de diretórios e arquivos de forma dinâmica

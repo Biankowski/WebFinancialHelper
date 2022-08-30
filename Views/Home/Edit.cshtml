@@ -1,0 +1,24 @@
+﻿@model CollectedData
+@{
+    ViewData["Title"] = "Edit";
+}
+<h2>Are you sure you want to Edit these items?</h2>
+
+
+<form class="form-inline" method="post">
+    <input asp-for="Id" hidden />
+    <div class="form-group  ">
+        <label class="sr-only">Place</label>
+        <input type="text" class="form-control" id="inputPassword2" value="@Model.PlaceOfPurchase">
+        <label class="sr-only">Price</label>
+        <input type="text" class="form-control" id="inputPassword2" value="@Model.Price">
+        <label class="sr-only">Purchase Date</label>
+        <input type="text" class="form-control" id="inputPassword2" value="@Model.PurchaseDate">
+        <label class="sr-only">Purchase Time</label>
+        <input type="text" class="form-control" id="inputPassword2" value="@Model.PurchaseTime">
+        <label class="sr-only">Upload Time</label>
+        <input type="text" class="form-control" id="inputPassword2" value="@Model.UploadDate">
+    </div><br />
+    <button type="submit" class="btn btn-warning ">Edit</button> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+</form>
+

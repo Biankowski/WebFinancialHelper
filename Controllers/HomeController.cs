@@ -15,7 +15,6 @@ namespace WebFinancialHelper.Controllers
         private readonly IBufferedFileUpload _bufferedFileUpload;
         private readonly ApplicationDbContext _db;
 
-
         public HomeController(IBufferedFileUpload bufferedFileUpload, ApplicationDbContext db)
         {
             _bufferedFileUpload = bufferedFileUpload;
@@ -37,7 +36,7 @@ namespace WebFinancialHelper.Controllers
         public async Task<IActionResult> Add(IFormFile file)
         {
             var textFilePath = @"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\test.txt";
-            var imagePath = @"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\UploadedFiles\cielo.jpeg";
+            var imagePath = @"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\UploadedFiles\kims.jpeg";
             var tessDataPath = @"C:\Program Files\Tesseract-OCR\tessdata";
             var tessDataLanguage = "por";
 
@@ -83,26 +82,24 @@ namespace WebFinancialHelper.Controllers
 
         public IActionResult Delete(int? id)
         {
-            var itemsFromDb = _db.CollectedData.Find(id);
+            var itemFromDb = _db.CollectedData.Find(id);
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            
-
-            if(itemsFromDb == null)
+            if (itemFromDb == null)
             {
                 return NotFound();
             }
-            return View(itemsFromDb);
+            return View(itemFromDb);
         }
 
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
             var obj = _db.CollectedData.Find(id);
-            if(obj == null)
+            if (obj == null)
             {
                 return NotFound();
             }
@@ -110,5 +107,35 @@ namespace WebFinancialHelper.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int? id)
+        {
+            var itemFromDb = _db.CollectedData.Find(id);
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            if (itemFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(itemFromDb);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPost(int? id)
+        {
+            var itemFromDb = _db.CollectedData.Find(id);
+            if (itemFromDb == null)
+            {
+                return NotFound();
+            }
+            _db.CollectedData.Update(itemFromDb);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
     }
 }
