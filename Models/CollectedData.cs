@@ -8,9 +8,18 @@ namespace WebFinancialHelper.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime Day { get; set; } = DateTime.Now;
-        public decimal Value { get; set; }
-        public string? Place { get; set; }
-        
+        public string? PlaceOfPurchase { get; set; }
+        public string? Price { get; set; } 
+        public string? PurchaseDate { get; set; } 
+        public string? PurchaseTime { get; set; } 
+        public string? UploadDate { get; set; }
+
     }
+
+    public class RootObject
+    {
+        public List<CollectedData> CollectedData { get; set; }
+    }
+
+ 
 }

@@ -1,37 +1,38 @@
-﻿@{
+﻿@model IEnumerable<CollectedData>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <h2 class="text-center">Data</h2>
 <div class="text-end">
-<a class="btn btn-primary" asp-controller="Home" asp-action="Add">Add new Entry</a>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Add">Add new Entry</a>
 </div>
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Day</th>
-      <th scope="col">Price</th>
-      <th scope="col">Place</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-    
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-    
-    </tr>
-  </tbody>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Place</th>
+            <th scope="col">Price</th>
+            <th scope="col">Purchase Date</th>
+            <th scope="col">Purchase Time</th>
+            <th scope="col">Upload Time</th>
+            <th scope="col">Edit Delete</th>
+
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <th scope="row"></th>
+                <td>@item.PlaceOfPurchase</td>
+                <td>R$@item.Price</td>
+                <td>@item.PurchaseDate</td>
+                <td>@item.PurchaseTime</td>
+                <td>@item.UploadDate</td>
+                <td><a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id" >Edit</a> <a class="btn btn-danger" asp-action="Delete"  asp-route-id="@item.Id">Delete</a></td>
+                <td></td>
+            </tr>
+        </tbody>
+    }
 </table>

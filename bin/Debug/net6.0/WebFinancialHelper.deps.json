@@ -40,6 +40,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.7",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.8",
+          "Newtonsoft.Json": "13.0.1",
           "Tesseract": "4.1.1",
           "Microsoft.AspNetCore.Antiforgery": "6.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "6.0.0.0",

@@ -1,0 +1,3 @@
+﻿1) Acabar com a Action Add e acoplar a funcionalidade de adicionar imagens direto na Action Index
+2) Adicionar a Action Edit
+3) Adicionar o valor total das compras no Index

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EMVnbFnxkreIyvUEpxmZ2tRhShk0SYYdWzZ0Ih26zJhAuBA+lKu3k0kDioauHwjm2LvutLbdDJPmxGyqzdJZLg==",
+  "dgSpecHash": "8zy4ne1RQJxxqOEYvJztTrZbQa0aJNRw0fVoQxUml8G+ZdL4sqt1WRciU0AFIXlZZdv//Nl9CHj5a39nPuU4Yg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\OCRFinancialHelper\\WebFinancialHelper\\WebFinancialHelper.csproj",
+  "projectFilePath": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\WebOCR\\WebFinancialHelper\\WebFinancialHelper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Biankovsky\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Biankovsky\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

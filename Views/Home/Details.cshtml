@@ -1,0 +1,34 @@
+﻿@model CollectedData
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Are you sure you want to submit these items to the Database?</h2>
+
+<form method="post">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Place</th>
+                <th scope="col">Price</th>
+                <th scope="col">Purchase Date</th>
+                <th scope="col">Purchase Time</th>
+                <th scope="col">Upload Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <th scope="row">#</th>
+                <td>@Model.PlaceOfPurchase</td>
+                <td>R$@Model.Price</td>
+                <td>@Model.PurchaseDate</td>
+                <td>@Model.PurchaseTime</td>
+                <td>@Model.UploadDate</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit</button> <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Cancel</a>
+</form>

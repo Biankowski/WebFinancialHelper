@@ -9702,6 +9702,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.7",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.8",
+      "Newtonsoft.Json >= 13.0.1",
       "Tesseract >= 4.1.1"
     ]
   },
@@ -9712,11 +9713,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\OCRFinancialHelper\\WebFinancialHelper\\WebFinancialHelper.csproj",
+      "projectUniqueName": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\WebOCR\\WebFinancialHelper\\WebFinancialHelper.csproj",
       "projectName": "WebFinancialHelper",
-      "projectPath": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\OCRFinancialHelper\\WebFinancialHelper\\WebFinancialHelper.csproj",
+      "projectPath": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\WebOCR\\WebFinancialHelper\\WebFinancialHelper.csproj",
       "packagesPath": "C:\\Users\\Biankovsky\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\OCRFinancialHelper\\WebFinancialHelper\\obj\\",
+      "outputPath": "C:\\Users\\Biankovsky\\Desktop\\Projetos C#\\WebOCR\\WebFinancialHelper\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -9776,6 +9777,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[6.0.8, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
           },
           "Tesseract": {
             "target": "Package",
