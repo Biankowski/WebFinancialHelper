@@ -7,6 +7,7 @@ using Tesseract;
 using Newtonsoft.Json;
 using WebFinancialHelper.Data;
 
+
 namespace WebFinancialHelper.Controllers
 {
     public class HomeController : Controller
@@ -21,7 +22,7 @@ namespace WebFinancialHelper.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<CollectedData> collectedData = _db.CollectedData;
+            IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
             return View(collectedData);
         }
         //GET
@@ -31,8 +32,9 @@ namespace WebFinancialHelper.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(IFormFile file)
+        [HttpPost, ActionName("AddPhoto")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPhoto(IFormFile file)
         {
             var imagePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles", "photo.jpeg"));
             var textFilePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles", "text.txt"));
@@ -55,6 +57,18 @@ namespace WebFinancialHelper.Controllers
             readImage.ReadImageFromUser(textFilePath, imagePath);
             readImage.FilterText();
             return RedirectToAction("Details");
+        }
+        [HttpPost, ActionName("AddForms")]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddForms(CollectedData obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.CollectedData.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         public IActionResult Details()

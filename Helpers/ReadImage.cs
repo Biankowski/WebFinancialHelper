@@ -50,7 +50,7 @@ namespace WebFinancialHelper.Helpers
             string? placeOfPurchase = "";
             string textFilepath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles"));
             string jsonFilePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles"));
-            DateTime uploadDate = DateTime.UtcNow;
+            DateTime uploadDate = DateTime.Now;
             var matchesDate = new Regex(@"(\d+\/\d+\/\d+)");
             var matchesValue = new Regex(@"(\d+\,\d{2})");
             var matchesTime = new Regex(@"(\d+\:\d+)");
