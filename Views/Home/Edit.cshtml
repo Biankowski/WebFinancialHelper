@@ -5,20 +5,25 @@
 <h2>Are you sure you want to Edit these items?</h2>
 
 
-<form class="form-inline" method="post">
+<form method="post" class="form-inline" >
     <input asp-for="Id" hidden />
     <div class="form-group  ">
-        <label class="sr-only">Place</label>
-        <input type="text" class="form-control" id="inputPassword2" value="@Model.PlaceOfPurchase">
-        <label class="sr-only">Price</label>
-        <input type="text" class="form-control" id="inputPassword2" value="@Model.Price">
-        <label class="sr-only">Purchase Date</label>
-        <input type="text" class="form-control" id="inputPassword2" value="@Model.PurchaseDate">
-        <label class="sr-only">Purchase Time</label>
-        <input type="text" class="form-control" id="inputPassword2" value="@Model.PurchaseTime">
-        <label class="sr-only">Upload Time</label>
-        <input type="text" class="form-control" id="inputPassword2" value="@Model.UploadDate">
+        <label asp-for="PlaceOfPurchase" class="sr-only">Place</label>
+        <input asp-for="PlaceOfPurchase" type="text" class="form-control">
+
+        <label asp-for="Price" class="sr-only">Price</label>
+        <input asp-for="Price" type="text" class="form-control">
+
+        <label asp-for="PurchaseDate" class="sr-only">Purchase Date</label>
+        <input asp-for="PurchaseDate" type="text" class="form-control">
+
+        <label asp-for="PurchaseTime" class="sr-only">Purchase Time</label>
+        <input asp-for="PurchaseTime" type="text" class="form-control">
+
+        <label asp-for="UploadDate" class="sr-only">Upload Time</label>
+        <input asp-for="UploadDate" type="text" class="form-control">
+
     </div><br />
-    <button type="submit" class="btn btn-warning ">Edit</button> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-warning ">Submit Changes</button> <a class="btn btn-danger" asp-action="Index">Cancel</a>
 </form>
 

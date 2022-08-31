@@ -124,16 +124,15 @@ namespace WebFinancialHelper.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public IActionResult EditPost(int? id)
+        public IActionResult EditPost(CollectedData obj)
         {
-            var itemFromDb = _db.CollectedData.Find(id);
-            if (itemFromDb == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                _db.CollectedData.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            _db.CollectedData.Update(itemFromDb);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            return View();
 
         }
 
