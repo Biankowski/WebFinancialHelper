@@ -1114,4 +1114,4 @@ C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6
 C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.pdb
 C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.genruntimeconfig.cache
 C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\ref\WebFinancialHelper.dll
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\bin\Debug\net6.0\jsonList.json
+C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\bin\Debug\net6.0\JsonFiles\jsonFiles.json

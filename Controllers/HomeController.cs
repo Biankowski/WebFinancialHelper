@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using WebFinancialHelper.Helpers;
 using WebFinancialHelper.Interfaces;
 using WebFinancialHelper.Models;
@@ -35,8 +34,8 @@ namespace WebFinancialHelper.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(IFormFile file)
         {
-            var textFilePath = @"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\test.txt";
-            var imagePath = @"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\UploadedFiles\kims.jpeg";
+            var imagePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles", "photo.jpeg"));
+            var textFilePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles", "text.txt"));
             var tessDataPath = @"C:\Program Files\Tesseract-OCR\tessdata";
             var tessDataLanguage = "por";
 
@@ -60,7 +59,7 @@ namespace WebFinancialHelper.Controllers
 
         public IActionResult Details()
         {
-            var jsonText = System.IO.File.ReadAllText(@"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\jsonList.json");
+            var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
             return View(jsonData);
         }
@@ -69,7 +68,7 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details(CollectedData obj)
         {
-            var jsonText = System.IO.File.ReadAllText(@"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\jsonList.json");
+            var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
             if (ModelState.IsValid)
             {

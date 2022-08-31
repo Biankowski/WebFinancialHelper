@@ -15,8 +15,14 @@ namespace WebFinancialHelper.Helpers
             _engine = engine;
         }
 
-        public void ReadImageFromUser(string textFileLogPath, string imagePath)
+        public void ReadImageFromUser(string path, string imagePath)
         {
+            path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles"));
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+            Directory.CreateDirectory(path);
             try
             {
                 using (var image = Pix.LoadFromFile(imagePath))
@@ -24,13 +30,7 @@ namespace WebFinancialHelper.Helpers
                     using (var page = _engine.Process(image))
                     {
                         var text = page.GetText();
-
-                        if (Directory.Exists(textFileLogPath))
-                        {
-                            Directory.Delete(textFileLogPath, true);
-                            Directory.CreateDirectory(textFileLogPath);
-                        }
-                        using (var sw = new StreamWriter(@"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\test.txt"))
+                        using (var sw = new StreamWriter(Path.Combine(path, "text.txt")))
                         {
                             foreach (var line in text)
                             {
@@ -48,15 +48,23 @@ namespace WebFinancialHelper.Helpers
         {
             string? line;
             string? placeOfPurchase = "";
+            string textFilepath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles"));
+            string jsonFilePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles"));
             DateTime uploadDate = DateTime.UtcNow;
             var matchesDate = new Regex(@"(\d+\/\d+\/\d+)");
             var matchesValue = new Regex(@"(\d+\,\d{2})");
             var matchesTime = new Regex(@"(\d+\:\d+)");
             var resultList = new Dictionary<string, string>();
 
+            if (Directory.Exists(jsonFilePath))
+            {
+                Directory.Delete(jsonFilePath, true);
+            }
+            Directory.CreateDirectory(jsonFilePath);
+
             try
             {
-                using (StreamReader sr = new StreamReader(@"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\test.txt"))
+                using (StreamReader sr = new StreamReader(Path.Combine(textFilepath, "text.txt")))
                 {
                     while ((line = sr.ReadLine()) != null)
                     {
@@ -81,7 +89,7 @@ namespace WebFinancialHelper.Helpers
                             resultList.Add("PlaceOfPurchase", placeOfPurchase);
                         }
                         var jsonList = JsonConvert.SerializeObject(resultList, Formatting.Indented);
-                        File.WriteAllText(@"C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\jsonList.json", jsonList);
+                        File.WriteAllText(Path.Combine(jsonFilePath, "jsonFiles.json"), jsonList);
 
                     }
                 }

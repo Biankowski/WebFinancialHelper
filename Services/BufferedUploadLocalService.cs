@@ -6,7 +6,12 @@ namespace WebFinancialHelper.Services
     {
         public async Task<bool> UploadFile(IFormFile file)
         {
-            string path = "";
+            string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles"));
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+            Directory.CreateDirectory(path);
             try
             {
                 if (file == null)
@@ -15,12 +20,7 @@ namespace WebFinancialHelper.Services
                 }
                 if (file.Length > 0)
                 {
-                    path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles"));
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    using (var fileStream = new FileStream(Path.Combine(path, file.FileName), FileMode.Create))
+                    using (var fileStream = new FileStream(Path.Combine(path, "photo.jpeg"), FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
                     }
