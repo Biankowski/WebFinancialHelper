@@ -1,0 +1,8 @@
+﻿Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation=v6.0.7
+Microsoft.EntityFrameworkCore=v6.0.7
+Microsoft.EntityFrameworkCore.Design=v6.0.7
+Microsoft.EntityFrameworkCore.SqlServer=v6.0.7
+Microsoft.EntityFrameworkCore.Tools=v6.0.7
+Microsoft.VisualStudio.Web.CodeGeneration.Design=v6.0.8
+Newtonsoft.Json=v13.0.1
+Tesseract=v4.1.1

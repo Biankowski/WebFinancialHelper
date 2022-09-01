@@ -1,4 +1,0 @@
-﻿3) Adicionar o valor total das compras no Index - Aprender como fazer o Cast do valor que está na database
-5) Melhorar a aparência
-6) Tentar jogar os items de Details direto numa lista para não precisar deserializar o json duas vezes
-7) Seprar as Views em outras Controllers. 
