@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using Tesseract;
 using WebFinancialHelper.Models;
 
-namespace WebFinancialHelper.Helpers
+namespace WebFinancialHelper.Services
 {
     public class ReadImage
     {
@@ -11,7 +11,7 @@ namespace WebFinancialHelper.Helpers
 
         public ReadImage(TesseractEngine engine)
         {
-            
+
             _engine = engine;
         }
 

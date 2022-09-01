@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebFinancialHelper.Helpers;
 using WebFinancialHelper.Interfaces;
 using WebFinancialHelper.Models;
 using WebFinancialHelper.Services;
 using Tesseract;
 using Newtonsoft.Json;
 using WebFinancialHelper.Data;
-using Newtonsoft.Json.Linq;
+
 
 namespace WebFinancialHelper.Controllers
 {
@@ -27,6 +26,13 @@ namespace WebFinancialHelper.Controllers
         
             return View(collectedData);
         }
+
+        [HttpGet]
+        public IActionResult About()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -78,6 +84,7 @@ namespace WebFinancialHelper.Controllers
         {
             var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
+
             return View(jsonData);
         }
 

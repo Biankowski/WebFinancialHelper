@@ -15,11 +15,4 @@ namespace WebFinancialHelper.Models
         public string? UploadDate { get; set; }
 
     }
-
-    public class RootObject
-    {
-        public List<CollectedData> CollectedData { get; set; }
-    }
-
- 
 }
