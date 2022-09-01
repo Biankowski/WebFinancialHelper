@@ -6,7 +6,7 @@ using WebFinancialHelper.Services;
 using Tesseract;
 using Newtonsoft.Json;
 using WebFinancialHelper.Data;
-
+using Newtonsoft.Json.Linq;
 
 namespace WebFinancialHelper.Controllers
 {
@@ -20,12 +20,14 @@ namespace WebFinancialHelper.Controllers
             _bufferedFileUpload = bufferedFileUpload;
             _db = db;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
+        
             return View(collectedData);
         }
-        //GET
+        [HttpGet]
         public IActionResult Add()
         {
 
@@ -58,6 +60,7 @@ namespace WebFinancialHelper.Controllers
             readImage.FilterText();
             return RedirectToAction("Details");
         }
+
         [HttpPost, ActionName("AddForms")]
         [ValidateAntiForgeryToken]
         public IActionResult AddForms(CollectedData obj)
@@ -70,7 +73,7 @@ namespace WebFinancialHelper.Controllers
             }
             return View();
         }
-
+        [HttpGet]
         public IActionResult Details()
         {
             var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
@@ -82,8 +85,12 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details(CollectedData obj)
         {
+
             var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
+            jsonData.PlaceOfPurchase = obj.PlaceOfPurchase;
+            
+
             if (ModelState.IsValid)
             {
                 _db.CollectedData.Add(jsonData);
@@ -93,6 +100,7 @@ namespace WebFinancialHelper.Controllers
             return View(obj);
         }
 
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             var itemFromDb = _db.CollectedData.Find(id);
@@ -120,7 +128,7 @@ namespace WebFinancialHelper.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [HttpGet]
         public IActionResult Edit(int? id)
         {
             var itemFromDb = _db.CollectedData.Find(id);
