@@ -14,7 +14,9 @@ namespace WebFinancialHelper.Services
 
             _engine = engine;
         }
-
+        
+        // Method used to read the image that was uploaded by the user
+        // This method uses the Tesseract engine library
         public void ReadImageFromUser(string path, string imagePath)
         {
             path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles"));
@@ -44,6 +46,9 @@ namespace WebFinancialHelper.Services
             {
             }
         }
+        // Method used to filter the text that was collected from the image
+        // Regex is used to filter the text
+        // The data filterd will be added to a Dictionary and serialized to Json format
         public void FilterText()
         {
             string? line;

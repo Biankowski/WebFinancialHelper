@@ -7,7 +7,6 @@ namespace WebFinancialHelper.Data
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-
         {
         }
         public DbSet<CollectedData> CollectedData { get; set; } 

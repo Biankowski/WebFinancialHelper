@@ -13,6 +13,5 @@ namespace WebFinancialHelper.Models
         public string? PurchaseDate { get; set; } 
         public string? PurchaseTime { get; set; } 
         public string? UploadDate { get; set; }
-
     }
 }

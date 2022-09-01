@@ -19,9 +19,11 @@ namespace WebFinancialHelper.Controllers
             _bufferedFileUpload = bufferedFileUpload;
             _db = db;
         }
+        
         [HttpGet]
         public IActionResult Index()
         {
+            // Display all the data that is in the database
             IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
         
             return View(collectedData);
@@ -40,6 +42,7 @@ namespace WebFinancialHelper.Controllers
             return View();
         }
 
+        // Method to Add a Photo through the form
         [HttpPost, ActionName("AddPhoto")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPhoto(IFormFile file)
@@ -49,6 +52,7 @@ namespace WebFinancialHelper.Controllers
             var tessDataPath = @"C:\Program Files\Tesseract-OCR\tessdata";
             var tessDataLanguage = "por";
 
+            // Try to get the uploaded file and save it in the destinated folder
             try
             {
                 if (await _bufferedFileUpload.UploadFile(file))
@@ -61,12 +65,15 @@ namespace WebFinancialHelper.Controllers
                 }
             }
             catch (Exception) { }
+
+            // Instantiate the ReadImage class and passa an instance of the Tesseract Engine to it
             var readImage = new ReadImage(new TesseractEngine(tessDataPath, tessDataLanguage, EngineMode.Default));
             readImage.ReadImageFromUser(textFilePath, imagePath);
             readImage.FilterText();
             return RedirectToAction("Details");
         }
 
+        // Method to add data manually through the form
         [HttpPost, ActionName("AddForms")]
         [ValidateAntiForgeryToken]
         public IActionResult AddForms(CollectedData obj)
@@ -79,9 +86,11 @@ namespace WebFinancialHelper.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public IActionResult Details()
         {
+            // Deserialize the json file and map it to the Model Class and display in the view
             var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
 
@@ -92,7 +101,8 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Details(CollectedData obj)
         {
-
+            // Deserialize the json file again to add it to the database
+            // This method recieves a CollectedData object and assign it to the place of purchase.
             var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
             jsonData.PlaceOfPurchase = obj.PlaceOfPurchase;

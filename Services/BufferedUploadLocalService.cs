@@ -4,6 +4,7 @@ namespace WebFinancialHelper.Services
 {
     public class BufferedUploadLocalService : IBufferedFileUpload
     {
+        // Method used to Upload the recived photo to the local directory
         public async Task<bool> UploadFile(IFormFile file)
         {
             string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles"));
