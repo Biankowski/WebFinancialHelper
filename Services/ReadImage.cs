@@ -59,7 +59,7 @@ namespace WebFinancialHelper.Services
             var matchesDate = new Regex(@"(\d+\/\d+\/\d+)");
             var matchesValue = new Regex(@"(\d+\,\d{2})");
             var matchesTime = new Regex(@"(\d+\:\d+)");
-            var resultList = new Dictionary<string, string>();
+            var resultList = new Dictionary<string, dynamic>();
 
             if (Directory.Exists(jsonFilePath))
             {
@@ -79,18 +79,20 @@ namespace WebFinancialHelper.Services
                         if (date.Success)
                         {
                             string dateFound = date.Groups[0].Value;
-                            resultList.Add("PurchaseDate", dateFound);
+                            DateTime dateOfPurchase = DateTime.Parse(dateFound);
+                            resultList.Add("PurchaseDate", dateOfPurchase);
                         }
                         if (value.Success)
                         {
-                            string valueFound = value.Groups[0].Value;
-                            resultList.Add("Price", valueFound);
+                            var valueFound = value.Groups[0].Value;
+                            decimal price = Decimal.Parse(valueFound);
+                            resultList.Add("Price", price);
                         }
                         if (time.Success)
                         {
                             string timeFound = time.Groups[0].Value;
                             resultList.Add("PurchaseTime", timeFound);
-                            resultList.Add("UploadDate", uploadDate.ToString());
+                            resultList.Add("UploadDate", uploadDate);
                             resultList.Add("PlaceOfPurchase", placeOfPurchase);
                         }
                         var jsonList = JsonConvert.SerializeObject(resultList, Formatting.Indented);

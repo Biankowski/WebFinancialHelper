@@ -9,8 +9,8 @@ namespace WebFinancialHelper.Models
         [Key]
         public int Id { get; set; }
         public string? PlaceOfPurchase { get; set; }
-        public string? Price { get; set; } 
-        public string? PurchaseDate { get; set; } 
+        public decimal? Price { get; set; } 
+        public DateTime PurchaseDate { get; set; }
         public string? PurchaseTime { get; set; } 
         public string? UploadDate { get; set; }
     }
