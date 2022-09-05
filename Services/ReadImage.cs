@@ -80,11 +80,7 @@ namespace WebFinancialHelper.Services
                         {
                             string dateFound = date.Groups[0].Value;
                             DateTime dateOfPurchase = DateTime.Parse(dateFound);
-<<<<<<< HEAD
                             resultList.Add("PurchaseDate", dateOfPurchase.ToShortDateString());
-=======
-                            resultList.Add("PurchaseDate", dateOfPurchase);
->>>>>>> 9a06fdb68958f87989c17946dd79a52162d72441
                         }
                         if (value.Success)
                         {
@@ -96,11 +92,7 @@ namespace WebFinancialHelper.Services
                         {
                             string timeFound = time.Groups[0].Value;
                             resultList.Add("PurchaseTime", timeFound);
-<<<<<<< HEAD
                             resultList.Add("UploadDate", uploadDate.ToShortDateString());
-=======
-                            resultList.Add("UploadDate", uploadDate);
->>>>>>> 9a06fdb68958f87989c17946dd79a52162d72441
                             resultList.Add("PlaceOfPurchase", placeOfPurchase);
                         }
                         var jsonList = JsonConvert.SerializeObject(resultList, Formatting.Indented);
