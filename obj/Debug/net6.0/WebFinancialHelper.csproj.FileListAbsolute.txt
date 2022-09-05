@@ -1,9 +1,0 @@
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.csproj.AssemblyReference.cache
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.AssemblyInfoInputs.cache
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.AssemblyInfo.cs
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.csproj.CoreCompileInputs.cache
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.RazorAssemblyInfo.cache
-C:\Users\Biankovsky\Desktop\Projetos C#\WebOCR\WebFinancialHelper\obj\Debug\net6.0\WebFinancialHelper.RazorAssemblyInfo.cs

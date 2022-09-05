@@ -1,47 +1,38 @@
 ﻿@model CollectedData
 @using WebFinancialHelper.Controllers
-
 @{
     ViewData["Title"] = "Add";
 }
-
 <div class="text-center">
     <h2>Type the information you want to Add or Upload a recipt photo</h2>
 </div>
 <br />
-<form method="post" class="form-inline" asp-action="AddForms">
-    <div class="form-group  ">
-        <label asp-for="PlaceOfPurchase" class="sr-only">Place</label>
-        <input asp-for="PlaceOfPurchase" type="text" class="form-control w-25">
+<div class="card mt-4 p-4" style="background-color: #fff">
+    <form method="post" class="form-inline" asp-action="AddForms">
+        <div class="form-group  ">
+            <label asp-for="PlaceOfPurchase" class="sr-only">Place</label>
+            <input asp-for="PlaceOfPurchase" type="text" class="form-control w-25">
 
-        <label asp-for="Price" class="sr-only">Price</label>
-        <input asp-for="Price" type="text" class="form-control w-25">
+            <label asp-for="Price" class="sr-only">Price</label>
+            <input asp-for="Price" type="text" class="form-control w-25">
 
-        <label asp-for="PurchaseDate" class="sr-only">Purchase Date</label>
-        <input asp-for="PurchaseDate" type="text" class="form-control w-25">
+            <label asp-for="PurchaseDate" class="sr-only">Purchase Date</label>
+            <input asp-for="PurchaseDate" type="text" class="form-control w-25">
 
-        <label asp-for="PurchaseTime" class="sr-only">Purchase Time</label>
-        <input asp-for="PurchaseTime" type="text" class="form-control w-25">
+            <label asp-for="PurchaseTime" class="sr-only">Purchase Time</label>
+            <input asp-for="PurchaseTime" type="text" class="form-control w-25">
 
-        <label asp-for="UploadDate" class="sr-only">Upload Time</label>
-        <input asp-for="UploadDate" type="text" class="form-control w-25" value="@DateTime.Now">
+            <label asp-for="UploadDate" class="sr-only">Upload Time</label>
+            <input asp-for="UploadDate" type="text" class="form-control w-25" value="@DateTime.Now">
 
-    </div><br />
-    <button type="submit" class="btn btn-success" style="background-color: #059c4b">Add</button> <a class="btn btn-danger" style="background-color: #f2184b" asp-action="Index">Cancel</a>
-</form>
-
-
-<div class="text-right"><br />
-    <p>---------------------------------------------------------------------------</p>
-    <form method="post" enctype="multipart/form-data" asp-action="AddPhoto">
-        <input type="file" name="file"  /><br /><br />
-        <button type="submit" class="btn btn-success" style="background-color: #059c4b">Upload File</button>
+        </div><br />
+        <button type="submit" class="btn btn-success" style="background-color: #059c4b">Add</button> <a class="btn btn-danger" style="background-color: #f2184b" asp-action="Index">Cancel</a>
     </form>
-</div>
-
-@if (ViewBag.Message != null)
-{
-    <div class="alert" style="margin-top:20px">
-        @ViewBag.Message
+    <p>_________________________________________________</p>
+    <div class="text-right">
+        <form method="post" enctype="multipart/form-data" asp-action="AddPhoto">
+            <input type="file" name="file" /><br /><br />
+            <button type="submit" class="btn btn-success" style="background-color: #059c4b">Upload File</button>
+        </form>
     </div>
-}
+</div>

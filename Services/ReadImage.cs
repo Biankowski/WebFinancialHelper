@@ -14,7 +14,6 @@ namespace WebFinancialHelper.Services
 
             _engine = engine;
         }
-
         // Method used to read the image that was uploaded by the user
         // This method uses the Tesseract engine library
         public void ReadImageFromUser(string path, string imagePath)
@@ -97,7 +96,6 @@ namespace WebFinancialHelper.Services
                         }
                         var jsonList = JsonConvert.SerializeObject(resultList, Formatting.Indented);
                         File.WriteAllText(Path.Combine(jsonFilePath, "jsonFiles.json"), jsonList);
-
                     }
                 }
             }

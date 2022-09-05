@@ -18,8 +18,7 @@ namespace WebFinancialHelper.Controllers
         {
             _bufferedFileUpload = bufferedFileUpload;
             _db = db;
-        }
-        
+        }  
         [HttpGet]
         public IActionResult Index()
         {
@@ -27,13 +26,11 @@ namespace WebFinancialHelper.Controllers
             IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
             return View(collectedData);
         }
-
         [HttpGet]
         public IActionResult About()
         {
             return View();
         }
-
         [HttpGet]
         public IActionResult Add()
         {
@@ -71,7 +68,6 @@ namespace WebFinancialHelper.Controllers
             readImage.FilterText();
             return RedirectToAction("Details");
         }
-
         // Method to add data manually through the form
         [HttpPost, ActionName("AddForms")]
         [ValidateAntiForgeryToken]
@@ -85,7 +81,6 @@ namespace WebFinancialHelper.Controllers
             }
             return View();
         }
-
         [HttpGet]
         public IActionResult Details()
         {
@@ -95,7 +90,6 @@ namespace WebFinancialHelper.Controllers
 
             return View(jsonData);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Details(CollectedData obj)
@@ -106,7 +100,6 @@ namespace WebFinancialHelper.Controllers
             var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
             jsonData.PlaceOfPurchase = obj.PlaceOfPurchase;
             
-
             if (ModelState.IsValid)
             {
                 _db.CollectedData.Add(jsonData);
@@ -115,7 +108,6 @@ namespace WebFinancialHelper.Controllers
             }
             return View(obj);
         }
-
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -130,7 +122,6 @@ namespace WebFinancialHelper.Controllers
             }
             return View(itemFromDb);
         }
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
@@ -158,7 +149,6 @@ namespace WebFinancialHelper.Controllers
             }
             return View(itemFromDb);
         }
-
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public IActionResult EditPost(CollectedData obj)
@@ -170,7 +160,6 @@ namespace WebFinancialHelper.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-
         }
 
     }
