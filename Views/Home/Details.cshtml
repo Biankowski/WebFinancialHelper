@@ -5,30 +5,32 @@
 
 <h2>Are you sure you want to submit these items to the Database?</h2>
 
-<form method="post">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Place</th>
-                <th scope="col">Price</th>
-                <th scope="col">Purchase Date</th>
-                <th scope="col">Purchase Time</th>
-                <th scope="col">Upload Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <th scope="row">#</th>
-                <td><input asp-for="PlaceOfPurchase" type="text" ></td>
-                <td>R$@Model.Price</td>
-                <td>@Model.PurchaseDate</td>
-                <td>@Model.PurchaseTime</td>
-                <td>@Model.UploadDate</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <button type="submit" class="btn btn-primary">Submit</button> <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Cancel</a>
-</form>
+<div class="card mt-4 p-4" style="background-color: #fff">
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Purchase Date</th>
+                    <th scope="col">Purchase Time</th>
+                    <th scope="col">Upload Date</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th scope="row">#</th>
+                    <td><input asp-for="PlaceOfPurchase" type="text"></td>
+                    <td>R$@Model.Price</td>
+                    <td>@Model.PurchaseDate</td>
+                    <td>@Model.PurchaseTime</td>
+                    <td>@Model.UploadDate</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" style="background-color: #348feb">Submit</button> <a asp-controller="Home" asp-action="Index" class="btn btn-danger" style="background-color: #f2184b">Cancel</a>
+    </form>
+</div>

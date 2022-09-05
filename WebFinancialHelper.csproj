@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\Submit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Interfaces\IBufferedFileUpload.cs" />
   </ItemGroup>
 

@@ -25,7 +25,6 @@ namespace WebFinancialHelper.Controllers
         {
             // Display all the data that is in the database
             IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
-        
             return View(collectedData);
         }
 

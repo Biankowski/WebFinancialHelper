@@ -1,38 +1,43 @@
 ﻿@model IEnumerable<CollectedData>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
 }
 
-<h2 class="text-center">Data</h2>
+<p class="h2 text-center">All records</p>
 <div class="text-left">
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Add">Add new Entry</a>
+    <a class="btn btn-primary" style="background-color: #348feb" asp-controller="Home" asp-action="Add">Add new Entry</a>
 </div>
-<table class="table w-75">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Place</th>
-            <th scope="col">Price</th>
-            <th scope="col">Purchase Date</th>
-            <th scope="col">Purchase Time</th>
-            <th scope="col">Upload Time</th>
-            <th scope="col">Edit Delete</th>
 
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tbody>
+<div class="card mt-4 p-4" style="background-color: #fff">
+    <table class="table">
+        <thead>
             <tr>
-                <th scope="row"></th>
-                <td>@item.PlaceOfPurchase</td>
-                <td>R$@item.Price</td>
-                <td>@item.PurchaseDate</td>
-                <td>@item.PurchaseTime</td>
-                <td>@item.UploadDate</td>
-                <td><a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id" >Edit</a> <a class="btn btn-danger" asp-action="Delete"  asp-route-id="@item.Id">Delete</a></td>
-                <td></td>
+                <th scope="col">#</th>
+                <th scope="col">Place</th>
+                <th scope="col">Price</th>
+                <th scope="col">Purchase Date</th>
+                <th scope="col">Purchase Time</th>
+                <th scope="col">Upload Date</th>
+                <th scope="col">Edit Delete</th>
+
             </tr>
-        </tbody>
-    }
-</table>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <td>@item.PlaceOfPurchase</td>
+                    <td>R$@item.Price</td>
+                    <td>@item.PurchaseDate</td>
+                    <td>@item.PurchaseTime</td>
+                    <td>@item.UploadDate</td>
+                    
+                    <td><a class="btn btn-warning" style="background-color: #f2ca18" asp-action="Edit" asp-route-id="@item.Id">Edit</a> <a class="btn btn-danger" style="background-color: #f2184b" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        }
+    </table>
+    <p class="" style="text-align: left;"><b>Total: R$@Model.Sum(x => x.Price)</b></p>
+</div>

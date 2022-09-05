@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebFinancialHelper.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body >
     <header>
         <div class="container-fluid">
             <div class="row flex-nowrap w-75">
@@ -17,6 +17,7 @@
                         <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                             <span class="fs-5 d-none d-sm-inline">Financial Helper</span>
                         </a>
+                        <p>_____________________________</p>
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                             <li class="nav-item">
                                 <a asp-controller="Home" asp-action="Index" class="nav-link align-middle px-0">
@@ -34,7 +35,7 @@
                         <hr>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container ">
                     <main role="main" class="pb-3">
                         @RenderBody()
                     </main>

@@ -27,7 +27,7 @@
         <input asp-for="UploadDate" type="text" class="form-control w-25" value="@DateTime.Now">
 
     </div><br />
-    <button type="submit" class="btn btn-success ">Add</button> <a class="btn btn-danger" asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-success" style="background-color: #059c4b">Add</button> <a class="btn btn-danger" style="background-color: #f2184b" asp-action="Index">Cancel</a>
 </form>
 
 
@@ -35,7 +35,7 @@
     <p>---------------------------------------------------------------------------</p>
     <form method="post" enctype="multipart/form-data" asp-action="AddPhoto">
         <input type="file" name="file"  /><br /><br />
-        <button type="submit" class="btn btn-success ">Upload File</button>
+        <button type="submit" class="btn btn-success" style="background-color: #059c4b">Upload File</button>
     </form>
 </div>
 
