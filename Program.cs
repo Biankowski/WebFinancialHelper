@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Tesseract;
 using WebFinancialHelper.Data;
-using WebFinancialHelper.Interfaces;
 using WebFinancialHelper.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddTransient<IBufferedFileUpload, BufferedUploadLocalService>();
+builder.Services.AddTransient<BufferedUploadLocalService, BufferedUploadLocalService>();
+builder.Services.AddScoped<ApplicationService, ApplicationService>();
 
 
 var app = builder.Build();

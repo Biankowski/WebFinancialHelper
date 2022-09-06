@@ -1,8 +1,7 @@
-﻿using WebFinancialHelper.Interfaces;
-
+﻿
 namespace WebFinancialHelper.Services
 {
-    public class BufferedUploadLocalService : IBufferedFileUpload
+    public class BufferedUploadLocalService
     {
         // Method used to Upload the recived photo to the local directory
         public async Task<bool> UploadFile(IFormFile file)

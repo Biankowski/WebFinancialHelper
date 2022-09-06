@@ -1,53 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebFinancialHelper.Interfaces;
 using WebFinancialHelper.Models;
 using WebFinancialHelper.Services;
-using Tesseract;
 using Newtonsoft.Json;
 using WebFinancialHelper.Data;
-
+using System.Collections;
 
 namespace WebFinancialHelper.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBufferedFileUpload _bufferedFileUpload;
-        private readonly ApplicationDbContext _db;
 
-        public HomeController(IBufferedFileUpload bufferedFileUpload, ApplicationDbContext db)
+        private ApplicationService _applicationService;
+        private BufferedUploadLocalService _bufferedFileUpload;
+
+        public HomeController(ApplicationService applicationService, BufferedUploadLocalService bufferedFileUpload)
         {
+            _applicationService = applicationService;
             _bufferedFileUpload = bufferedFileUpload;
-            _db = db;
-        }  
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
             // Display all the data that is in the database
-            IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
-            return View(collectedData);
+            IEnumerable data = _applicationService.DisplayItemsFromDb();
+
+            return View(data);
         }
+
         [HttpGet]
         public IActionResult About()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Add()
         {
-
             return View();
         }
 
-        // Method to Add a Photo through the form
+        // Method to Add a Photo through an Uploaded file
         [HttpPost, ActionName("AddPhoto")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPhoto(IFormFile file)
         {
-            var imagePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "UploadedFiles", "photo.jpeg"));
-            var textFilePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles", "text.txt"));
-            var tessDataPath = @"C:\Program Files\Tesseract-OCR\tessdata";
-            var tessDataLanguage = "por";
-
             // Try to get the uploaded file and save it in the destinated folder
             try
             {
@@ -62,101 +59,76 @@ namespace WebFinancialHelper.Controllers
             }
             catch (Exception) { }
 
-            // Instantiate the ReadImage class and passa an instance of the Tesseract Engine to it
-            var readImage = new ReadImage(new TesseractEngine(tessDataPath, tessDataLanguage, EngineMode.Default));
-            readImage.ReadImageFromUser(textFilePath, imagePath);
-            readImage.FilterText();
+            _applicationService.ProcessImage();
+
             return RedirectToAction("Details");
         }
+
         // Method to add data manually through the form
         [HttpPost, ActionName("AddForms")]
         [ValidateAntiForgeryToken]
         public IActionResult AddForms(CollectedData obj)
         {
-            if (ModelState.IsValid)
+            if (_applicationService.AddItemsFromForms(obj))
             {
-                _db.CollectedData.Add(obj);
-                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
         }
+
         [HttpGet]
         public IActionResult Details()
         {
             // Deserialize the json file and map it to the Model Class and display in the view
-            var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
-            var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
-
-            return View(jsonData);
+            CollectedData deserializedJson = _applicationService.DeserializeJsonFile();
+            return View(deserializedJson);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Details(CollectedData obj)
         {
-            // Deserialize the json file again to add it to the database
-            // This method recieves a CollectedData object and assign it to the place of purchase.
-            var jsonText = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles", "jsonFiles.json")));
-            var jsonData = JsonConvert.DeserializeObject<CollectedData>(jsonText);
-            jsonData.PlaceOfPurchase = obj.PlaceOfPurchase;
-            
-            if (ModelState.IsValid)
+            CollectedData deserializedJson = _applicationService.DeserializeJsonFile();
+            deserializedJson.PlaceOfPurchase = obj.PlaceOfPurchase;
+
+            if (_applicationService.SaveDetailsToDb(obj))
             {
-                _db.CollectedData.Add(jsonData);
-                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(obj);
         }
+
         [HttpGet]
         public IActionResult Delete(int? id)
         {
-            var itemFromDb = _db.CollectedData.Find(id);
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            if (itemFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(itemFromDb);
+            var obj = _applicationService.ShowItemsFromDbById(id);
+            return View(obj);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.CollectedData.Find(id);
-            if (obj == null)
+            if (_applicationService.DeleteItemsFromDb(id))
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
-            _db.CollectedData.Remove(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            return View();
         }
+
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var itemFromDb = _db.CollectedData.Find(id);
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            if (itemFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(itemFromDb);
+            var obj = _applicationService.ShowItemsFromDbById(id);
+            return View(obj);
         }
+
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public IActionResult EditPost(CollectedData obj)
         {
-            if (ModelState.IsValid)
+            if (_applicationService.EditItemsFromDb(obj))
             {
-                _db.CollectedData.Update(obj);
-                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
