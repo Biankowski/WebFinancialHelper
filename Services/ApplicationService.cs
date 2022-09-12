@@ -30,7 +30,7 @@ namespace WebFinancialHelper.Services
             var tessDataLanguage = "por";
 
             // Instantiate the ReadImage class and pass an instance of the Tesseract Engine to it
-            var readImage = new ReadImage(new TesseractEngine(tessDataPath, tessDataLanguage, EngineMode.Default));
+            var readImage = new ReadImageService(new TesseractEngine(tessDataPath, tessDataLanguage, EngineMode.Default));
             readImage.ReadImageFromUser(textFilePath, imagePath);
             readImage.FilterText();
         }

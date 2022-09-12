@@ -4,12 +4,12 @@ using WebFinancialHelper.Services;
 using Newtonsoft.Json;
 using WebFinancialHelper.Data;
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebFinancialHelper.Controllers
 {
     public class HomeController : Controller
     {
-
         private ApplicationService _applicationService;
         private BufferedUploadLocalService _bufferedFileUpload;
 
@@ -20,6 +20,7 @@ namespace WebFinancialHelper.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             // Display all the data that is in the database
@@ -42,6 +43,7 @@ namespace WebFinancialHelper.Controllers
 
         // Method to Add a Photo through an Uploaded file
         [HttpPost, ActionName("AddPhoto")]
+        
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPhoto(IFormFile file)
         {
