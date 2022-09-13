@@ -1,0 +1,37 @@
+﻿@model RegisterModel
+@{
+    Layout = "_LayoutLoggedOut";
+    ViewData["Title"] = "Register";
+}
+
+<h2 class="text-center">Register</h2>
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["AlertMessage"]
+    </div>
+}
+
+<form asp-controller="Auth" asp-action="Register" method="post">
+    <div class="mb-3 w-25">
+        <label class="form-label">Username</label>
+        <input asp-for="@Model.Username" type="text" class="form-control" id="login">
+    </div>
+
+    <div class="mb-3 w-25">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input asp-for="@Model.Email" type="email" class="form-control" id="email">
+    </div>
+
+    <div class="mb-3 w-25">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input asp-for="@Model.Password" type="password" class="form-control">
+    </div>
+    <div class="mb-3 w-25">
+        <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+        <input asp-for="@Model.RePassword" type="password" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

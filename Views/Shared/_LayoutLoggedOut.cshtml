@@ -18,6 +18,20 @@
                             <span class="fs-5 d-none d-sm-inline">Financial Helper</span>
                         </a>
                         <p>_____________________________</p>
+                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                            <li class="nav-item">
+                                <a asp-controller="Auth" asp-action="Login" class="nav-link align-middle px-0">
+                                    <i class="fs-4 bi-house"></i> <span class="text-white ms-1 d-none d-sm-inline">Login</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Auth" asp-action="Register" class="nav-link px-0 align-middle">
+                                    <i class="fs-4 bi-speedometer2"></i> <span class="text-white ms-1 d-none d-sm-inline">Register</span>
+                                </a>
+                                <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                </ul>
+                            </li>
+                        </ul>
                         <hr>
                     </div>
                 </div>

@@ -25,9 +25,6 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginPost(LoginModel request)
         {
-            //string username = request.Username;
-            //string password = request.Password;
-
             var client = WebApiHttpClientService.GetCLient();
             
             var jsonRequest = JsonConvert.SerializeObject(request).ToString();
@@ -36,12 +33,37 @@ namespace WebFinancialHelper.Controllers
 
             var response = await client.PostAsync("/Login", content);
 
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Home");
+                return View("Login");
             }
-            return View("Login");
+            return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterModel request)
+        {
+            var client = WebApiHttpClientService.GetCLient();
+
+            var jsonRequest = JsonConvert.SerializeObject(request).ToString();
+
+            HttpContent content = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("/Register", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["AlertMessage"] = "Username already exists";
+                return View("Register");
+            }
+            return RedirectToAction("Login");
+        }
     }
 }
