@@ -50,8 +50,9 @@ namespace WebFinancialHelper.Services
         // The data filterd will be added to a Dictionary and serialized to Json format
         public void FilterText()
         {
-            string? line;
-            string? placeOfPurchase = "";
+            string line;
+            string placeOfPurchase = "";
+            string responsibleUsername = "";
             string textFilepath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "TextFiles"));
             string jsonFilePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "JsonFiles"));
             DateTime uploadDate = DateTime.Now;
@@ -93,6 +94,7 @@ namespace WebFinancialHelper.Services
                             resultList.Add("PurchaseTime", timeFound);
                             resultList.Add("UploadDate", uploadDate.ToShortDateString());
                             resultList.Add("PlaceOfPurchase", placeOfPurchase);
+                            resultList.Add("ResponsibleUsername", responsibleUsername);
                         }
                         var jsonList = JsonConvert.SerializeObject(resultList, Formatting.Indented);
                         File.WriteAllText(Path.Combine(jsonFilePath, "jsonFiles.json"), jsonList);

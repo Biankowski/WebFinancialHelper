@@ -6,6 +6,7 @@ using WebFinancialHelper.Data;
 using System.Collections;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
+using FluentResults;
 
 namespace WebFinancialHelper.Controllers
 {
@@ -13,38 +14,54 @@ namespace WebFinancialHelper.Controllers
     {
         private ApplicationService _applicationService;
         private BufferedUploadLocalService _bufferedFileUpload;
+        private WebApiHttpClientService _webApiHttpClient;
 
-        public HomeController(ApplicationService applicationService, BufferedUploadLocalService bufferedFileUpload)
+        public HomeController(ApplicationService applicationService, BufferedUploadLocalService bufferedFileUpload, WebApiHttpClientService webApiHttpClient)
         {
             _applicationService = applicationService;
             _bufferedFileUpload = bufferedFileUpload;
+            _webApiHttpClient = webApiHttpClient;
         }
 
         [HttpGet]
-        //[Authorize(Roles = "admin")]
+        //[Authorize]
         public IActionResult Index()
         {
-            // Display all the data that is in the database
-            IEnumerable data = _applicationService.DisplayItemsFromDb();
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                var user = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserSession"));
+                // Display all the data that is in the database
+                var data = _applicationService.DisplayItemsFromDb(user);
 
-            return View(data);
+                return View(data);
+            }
+            return RedirectToAction("Login", "Auth");
+
         }
 
         [HttpGet]
         public IActionResult About()
         {
-            return View();
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         // Method to Add a Photo through an Uploaded file
         [HttpPost, ActionName("AddPhoto")]
-        
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPhoto(IFormFile file)
         {
@@ -63,7 +80,6 @@ namespace WebFinancialHelper.Controllers
             catch (Exception) { }
 
             _applicationService.ProcessImage();
-
             return RedirectToAction("Details");
         }
 
@@ -72,7 +88,8 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddForms(CollectedData obj)
         {
-            if (_applicationService.AddItemsFromForms(obj))
+            var user = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserSession"));
+            if (_applicationService.AddItemsFromForms(obj, user))
             {
                 return RedirectToAction("Index");
             }
@@ -82,9 +99,14 @@ namespace WebFinancialHelper.Controllers
         [HttpGet]
         public IActionResult Details()
         {
-            // Deserialize the json file and map it to the Model Class and display in the view
-            CollectedData deserializedJson = _applicationService.DeserializeJsonFile();
-            return View(deserializedJson);
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                // Deserialize the json file and map it to the Model Class and display in the view
+                CollectedData deserializedJson = _applicationService.DeserializeJsonFile();
+
+                return View(deserializedJson);
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         [HttpPost]
@@ -92,9 +114,11 @@ namespace WebFinancialHelper.Controllers
         public IActionResult Details(CollectedData obj)
         {
             CollectedData deserializedJson = _applicationService.DeserializeJsonFile();
+            var user = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserSession"));
+            deserializedJson.ResponsibleUsername = user.Username;
             deserializedJson.PlaceOfPurchase = obj.PlaceOfPurchase;
 
-            if (_applicationService.SaveDetailsToDb(obj))
+            if (_applicationService.SaveDetailsToDb(obj, user))
             {
                 return RedirectToAction("Index");
             }
@@ -104,8 +128,12 @@ namespace WebFinancialHelper.Controllers
         [HttpGet]
         public IActionResult Delete(int? id)
         {
-            var obj = _applicationService.ShowItemsFromDbById(id);
-            return View(obj);
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                var obj = _applicationService.ShowItemsFromDbById(id);
+                return View(obj);
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         [HttpPost, ActionName("Delete")]
@@ -122,19 +150,41 @@ namespace WebFinancialHelper.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var obj = _applicationService.ShowItemsFromDbById(id);
-            return View(obj);
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                var obj = _applicationService.ShowItemsFromDbById(id);
+                return View(obj);
+            }
+            return RedirectToAction("Login", "Auth");
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public IActionResult EditPost(CollectedData obj)
         {
-            if (_applicationService.EditItemsFromDb(obj))
+            var user = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserSession"));
+            if (_applicationService.EditItemsFromDb(obj, user))
             {
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            _webApiHttpClient.GetCLient();
+
+            var response = await _webApiHttpClient.LogoutUser();
+
+            if (response.IsSuccessStatusCode)
+            {
+                HttpContext.Session.Remove("UserSession");
+                return RedirectToAction("Login", "Auth");
+            }
+            return NotFound();
+
         }
     }
 }

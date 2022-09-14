@@ -14,7 +14,12 @@ namespace WebFinancialHelper.Controllers
 {
     public class AuthController : Controller
     {
-        
+        private readonly WebApiHttpClientService _webApiHttpClient;
+        public AuthController(WebApiHttpClientService webApiHttpClient)
+        {
+            _webApiHttpClient = webApiHttpClient;
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -25,18 +30,16 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginPost(LoginModel request)
         {
-            var client = WebApiHttpClientService.GetCLient();
-            
-            var jsonRequest = JsonConvert.SerializeObject(request).ToString();
+            _webApiHttpClient.GetCLient();
 
-            HttpContent content = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync("/Login", content);
+            var response = await _webApiHttpClient.GetResponse(request);
 
             if (!response.IsSuccessStatusCode)
             {
                 return View("Login");
             }
+            var userSession = new UserSessionModel() {Id = 1, Username = request.Username };
+            HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(userSession));
             return RedirectToAction("Index", "Home");
         }
 
@@ -50,13 +53,9 @@ namespace WebFinancialHelper.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel request)
         {
-            var client = WebApiHttpClientService.GetCLient();
+            _webApiHttpClient.GetCLient();
 
-            var jsonRequest = JsonConvert.SerializeObject(request).ToString();
-
-            HttpContent content = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync("/Register", content);
+            var response = await _webApiHttpClient.GetResponse(request);
 
             if (!response.IsSuccessStatusCode)
             {

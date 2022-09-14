@@ -4,6 +4,7 @@ namespace WebFinancialHelper.Models
 {
     public class LoginModel
     {
+        
         [Required]
         public string Username { get; set; }
         [Required]

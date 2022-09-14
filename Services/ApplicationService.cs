@@ -15,9 +15,9 @@ namespace WebFinancialHelper.Services
             _db = db;
         }
         // Get all items avaliable on the Database and display them ordered by date
-        public IEnumerable DisplayItemsFromDb()
+        public IEnumerable<CollectedData> DisplayItemsFromDb(UserSessionModel user)
         {
-            IEnumerable<CollectedData> collectedData = _db.CollectedData.OrderByDescending(x => x.PurchaseDate);
+            var collectedData = _db.CollectedData.Where(x => x.ResponsibleUsername == user.Username);
             return collectedData;
         }
         
@@ -36,8 +36,9 @@ namespace WebFinancialHelper.Services
         }
 
         // Method responsible to add an Object to the database
-        public bool AddItemsFromForms(CollectedData obj)
+        public bool AddItemsFromForms(CollectedData obj, UserSessionModel user)
         {
+            obj.ResponsibleUsername = user.Username;
             if (obj != null)
             {
                 _db.CollectedData.Add(obj);
@@ -56,10 +57,11 @@ namespace WebFinancialHelper.Services
         }
 
         // Method responsible to get the deserialized items and insert it to the database
-        public bool SaveDetailsToDb(CollectedData obj)
+        public bool SaveDetailsToDb(CollectedData obj, UserSessionModel user)
         {
             CollectedData deserializedData = DeserializeJsonFile();
             deserializedData.PlaceOfPurchase = obj.PlaceOfPurchase;
+            deserializedData.ResponsibleUsername = user.Username;
 
             if (obj != null)
             {
@@ -71,7 +73,7 @@ namespace WebFinancialHelper.Services
         }
 
         // Method responsible to display items from Database by Id
-        public CollectedData? ShowItemsFromDbById(int? id)
+        public CollectedData ShowItemsFromDbById(int? id)
         {
             var itemFromDb = _db.CollectedData.Find(id);
             if (id == null || id == 0)
@@ -99,8 +101,9 @@ namespace WebFinancialHelper.Services
         }
 
         // Method responsible to edit items from Database by Id
-        public bool EditItemsFromDb(CollectedData obj)
+        public bool EditItemsFromDb(CollectedData obj, UserSessionModel user)
         {
+            obj.ResponsibleUsername = user.Username;
             if (obj != null)
             {
                 _db.CollectedData.Update(obj);
