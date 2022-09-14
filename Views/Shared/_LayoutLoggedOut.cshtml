@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Financial Helper</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebFinancialHelper.styles.css" asp-append-version="true" />
 </head>
@@ -20,13 +21,13 @@
                         <p>_____________________________</p>
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                             <li class="nav-item">
-                                <a asp-controller="Auth" asp-action="Login" class="nav-link align-middle px-0">
-                                    <i class="fs-4 bi-house"></i> <span class="text-white ms-1 d-none d-sm-inline">Login</span>
+                                <a class="link-light" asp-controller="Auth" asp-action="Login">
+                                    Login
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="Auth" asp-action="Register" class="nav-link px-0 align-middle">
-                                    <i class="fs-4 bi-speedometer2"></i> <span class="text-white ms-1 d-none d-sm-inline">Register</span>
+                                <a class="link-light" asp-controller="Auth" asp-action="Register" >
+                                   Register
                                 </a>
                                 <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 </ul>

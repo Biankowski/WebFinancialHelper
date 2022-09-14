@@ -9,20 +9,20 @@
 <br />
 <div class="card mt-4 p-4" style="background-color: #fff">
     <form method="post" class="form-inline" asp-action="AddForms">
-        <div class="form-group  ">
-            <label asp-for="PlaceOfPurchase" class="sr-only">Place</label>
+        <div class="form-goup">
+            <label asp-for="PlaceOfPurchase" >Place</label>
             <input asp-for="PlaceOfPurchase" type="text" class="form-control w-25">
 
-            <label asp-for="Price" class="sr-only">Price</label>
+            <label asp-for="Price">Price</label>
             <input asp-for="Price" type="text" class="form-control w-25">
 
-            <label asp-for="PurchaseDate" class="sr-only">Purchase Date</label>
+            <label asp-for="PurchaseDate" >Purchase Date</label>
             <input asp-for="PurchaseDate" type="text" class="form-control w-25">
 
-            <label asp-for="PurchaseTime" class="sr-only">Purchase Time</label>
+            <label asp-for="PurchaseTime" >Purchase Time</label>
             <input asp-for="PurchaseTime" type="text" class="form-control w-25">
 
-            <label asp-for="UploadDate" class="sr-only">Upload Time</label>
+            <label asp-for="UploadDate" >Upload Time</label>
             <input asp-for="UploadDate" type="text" class="form-control w-25" value="@DateTime.Now">
 
         </div><br />
