@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebFinancialHelper.Models
 {
+    // This is the Database table model
     public class CollectedData
     {
         [Key]

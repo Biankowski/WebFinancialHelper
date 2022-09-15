@@ -25,6 +25,8 @@ namespace WebFinancialHelper.Controllers
             return View();
         }
 
+        // Communicate with the UsersApi and waits for the reponse to login users
+        // If users is Successfully logged in, a new session will be created and assign it to the user
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -48,6 +50,7 @@ namespace WebFinancialHelper.Controllers
             return View();
         }
 
+        // Communicate with the UsersApi and waits for the reponse to Register users
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

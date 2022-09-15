@@ -2,11 +2,6 @@
 using WebFinancialHelper.Models;
 using WebFinancialHelper.Services;
 using Newtonsoft.Json;
-using WebFinancialHelper.Data;
-using System.Collections;
-using Microsoft.AspNetCore.Authorization;
-using System.Net.Http;
-using FluentResults;
 
 namespace WebFinancialHelper.Controllers
 {
@@ -24,7 +19,6 @@ namespace WebFinancialHelper.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("UserSession") != null)
@@ -109,6 +103,7 @@ namespace WebFinancialHelper.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
+        // This method will be used to validate the data that was collected if users uploaded a Receipt photo
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Details(CollectedData obj)
@@ -125,6 +120,7 @@ namespace WebFinancialHelper.Controllers
             return View(obj);
         }
 
+        // Return a disered item to delete by Id
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -136,6 +132,7 @@ namespace WebFinancialHelper.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
+        // Perform a Delete from Database operation
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
@@ -147,6 +144,7 @@ namespace WebFinancialHelper.Controllers
             return View();
         }
 
+        // Return a disered item to edit by Id
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -158,6 +156,7 @@ namespace WebFinancialHelper.Controllers
             return RedirectToAction("Login", "Auth");
         }
 
+        // Perform a Update from Database operation
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public IActionResult EditPost(CollectedData obj)
@@ -170,6 +169,7 @@ namespace WebFinancialHelper.Controllers
             return View();
         }
 
+        // If user is successfully logged out, the current user session will be removed
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

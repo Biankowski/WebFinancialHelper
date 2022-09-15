@@ -14,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddTransient<BufferedUploadLocalService, BufferedUploadLocalService>();
 builder.Services.AddScoped<ApplicationService, ApplicationService>();
-builder.Services.AddScoped<WebApiHttpClientService, WebApiHttpClientService>();
+builder.Services.AddSingleton<WebApiHttpClientService, WebApiHttpClientService>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
